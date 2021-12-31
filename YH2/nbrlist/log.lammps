@@ -1,0 +1,96 @@
+LAMMPS (27 Oct 2021)
+# test Vashishta potential for quartz
+
+units		metal
+boundary	p p p
+
+atom_style	atomic
+
+read_data	data.yh2-3
+Reading data file ...
+  triclinic box = (0.0000000 0.0000000 0.0000000) to (15.605100 15.605100 15.605100) with tilt (0.0000000 0.0000000 0.0000000)
+  1 by 2 by 2 MPI processor grid
+  reading atoms ...
+  324 atoms
+  read_data CPU = 0.003 seconds
+
+#replicate       4 4 4
+#velocity	all create 2000.0 277387 mom yes
+#displace_atoms	all move 0.05 0.9 0.4 units box
+
+pair_style 	lj/cut 4.7
+pair_coeff	* * 1 1
+
+neighbor	0 bin
+neigh_modify	delay 1000
+
+compute nb all property/local natom1 natom2
+#compute nb all cnp/atom 2.5
+dump 2 all local 10000 nbr.out c_nb[1] c_nb[2]
+
+fix		1 all nve
+thermo		10
+timestep	0.001
+
+#dump		1 all cfg 10 *.cfg mass type xs ys zs vx vy vz fx fy fz
+#dump_modify	1 element Si O
+
+run		100
+Neighbor list info ...
+  update every 1 steps, delay 1000 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.7
+  ghost atom cutoff = 4.7
+  binsize = 2.35, bins = 7 7 7
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton/tri
+      stencil: half/bin/3d/tri
+      bin: standard
+  (2) compute property/local, occasional, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+Per MPI rank memory allocation (min/avg/max) = 4.713 | 4.713 | 4.713 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -39.774014            0   -39.774014   -33343.184 
+      10 6.0927983e-07   -39.774014            0   -39.774014   -33343.184 
+      20 3.8164691e-06   -39.774015            0   -39.774014   -33343.184 
+      30 1.7045546e-05   -39.774015            0   -39.774014   -33343.184 
+      40 7.1711086e-05   -39.774017            0   -39.774014   -33343.186 
+      50 0.00030046016   -39.774027            0   -39.774014   -33343.191 
+      60 0.0012682153   -39.774067            0   -39.774014   -33343.213 
+      70 0.0054002082    -39.77424            0   -39.774014   -33343.306 
+      80  0.023185138   -39.774981            0   -39.774013    -33343.71 
+      90   0.10034056   -39.778198            0   -39.774009    -33345.46 
+     100   0.43825626   -39.792287            0   -39.773989   -33353.123 
+Loop time of 0.00465825 on 4 procs for 100 steps with 324 atoms
+
+Performance: 1854.774 ns/day, 0.013 hours/ns, 21467.289 timesteps/s
+0.0% CPU use with 4 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0016921  | 0.0017939  | 0.0018914  |   0.2 | 38.51
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0019857  | 0.0020799  | 0.0021915  |   0.2 | 44.65
+Output  | 0.0001368  | 0.00016703 | 0.0002373  |   0.0 |  3.59
+Modify  | 0.0002579  | 0.00026788 | 0.0002762  |   0.0 |  5.75
+Other   |            | 0.0003496  |            |       |  7.50
+
+Nlocal:        81.0000 ave          81 max          81 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+Nghost:        571.000 ave         571 max         571 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+Neighs:        1728.00 ave        1728 max        1728 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 6912
+Ave neighs/atom = 21.333333
+Neighbor list builds = 0
+Dangerous builds = 0
+
+Total wall time: 0:00:00

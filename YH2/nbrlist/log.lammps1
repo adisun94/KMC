@@ -1,0 +1,78 @@
+--------------------------------------------------------------------------
+WARNING: Linux kernel CMA support was requested via the
+btl_vader_single_copy_mechanism MCA variable, but CMA support is
+not available due to restrictive ptrace settings.
+
+The vader shared memory BTL will fall back on another single-copy
+mechanism if one is available. This may result in lower performance.
+
+  Local host: DESKTOP-9F8NM5D
+--------------------------------------------------------------------------
+LAMMPS (27 Oct 2021)
+Reading data file ...
+  triclinic box = (0.0000000 0.0000000 0.0000000) to (15.605100 15.605100 15.605100) with tilt (0.0000000 0.0000000 0.0000000)
+  1 by 2 by 2 MPI processor grid
+  reading atoms ...
+  324 atoms
+  read_data CPU = 0.003 seconds
+Neighbor list info ...
+  update every 1 steps, delay 1000 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.75
+  ghost atom cutoff = 2.75
+  binsize = 1.375, bins = 12 12 12
+  2 neighbor lists, perpetual/occasional/extra = 1 1 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton/tri
+      stencil: half/bin/3d/tri
+      bin: standard
+  (2) compute property/local, occasional, copy from (1)
+      attributes: half, newton on
+      pair build: copy
+      stencil: none
+      bin: none
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 0
+  Time step     : 0.001
+Per MPI rank memory allocation (min/avg/max) = 4.684 | 4.684 | 4.684 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -34.611054            0   -34.611054   -28990.996 
+      10 5.407499e-07   -34.611054            0   -34.611054   -28990.996 
+      20 3.2861585e-06   -34.611054            0   -34.611054   -28990.996 
+      30 1.4054319e-05   -34.611054            0   -34.611054   -28990.997 
+      40 5.6216835e-05   -34.611056            0   -34.611054   -28990.998 
+      50 0.00022320604   -34.611063            0   -34.611054   -28991.001 
+      60 0.00089151474   -34.611091            0   -34.611053   -28991.017 
+      70 0.0035899494   -34.611203            0   -34.611053   -28991.078 
+      80  0.014570367   -34.611661            0   -34.611053   -28991.326 
+      90  0.059583525   -34.613538            0    -34.61105   -28992.345 
+     100   0.24565524   -34.621297            0   -34.611041   -28996.556 
+Loop time of 0.0024567 on 4 procs for 100 steps with 324 atoms
+
+Performance: 3516.913 ns/day, 0.007 hours/ns, 40705.011 timesteps/s
+0.0% CPU use with 4 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.000475   | 0.00051208 | 0.0005548  |   0.0 | 20.84
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0011841  | 0.00122    | 0.0012755  |   0.1 | 49.66
+Output  | 0.0001083  | 0.00013028 | 0.0001838  |   0.0 |  5.30
+Modify  | 0.0002591  | 0.0002642  | 0.0002736  |   0.0 | 10.75
+Other   |            | 0.0003302  |            |       | 13.44
+
+Nlocal:        81.0000 ave          81 max          81 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+Nghost:        281.000 ave         281 max         281 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+Neighs:        378.000 ave         378 max         378 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1512
+Ave neighs/atom = 4.6666667
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00

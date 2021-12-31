@@ -1,0 +1,22 @@
+#!/bin/bash
+
+rm -r nbrlist
+mkdir nbrlist
+cp in.lammps data.yh2-3 nbrlist
+cd nbrlist
+filename=(bonds.out nbr1s.out nbr2s.out nbr3.out)
+dist=(2.35 2.75 3.75 4.7)
+for i in 0 1 2 3 
+do
+cp in.lammps in.lmp
+sed -i "s/coff/${dist[i]}/g" in.lmp
+mpirun -n 4 ~/lammps/src/lmp_mpi < in.lmp > log.lammps$i
+cp nbr.out ${filename[i]}
+rm nbr.out
+done
+rm in.lammps
+cd ../
+
+mpirun -n 10 python3.6 mpikmc.py > /dev/null
+
+echo "created new folder with KMC data"
